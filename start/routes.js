@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -14,7 +12,11 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
+const Route = use('Route');
 
-Route.post('/register', "AuthController.register");
-Route.post('/authenticate', "AuthController.authenticate");
+Route.post('/register', 'AuthController.register');
+Route.post('/authenticate', 'AuthController.authenticate');
+
+Route.group(() => {
+  Route.resource('question', 'QuestionController').apiOnly();
+}).middleware('auth');
