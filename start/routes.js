@@ -18,5 +18,9 @@ Route.post('/register', 'AuthController.register');
 Route.post('/authenticate', 'AuthController.authenticate');
 
 Route.group(() => {
+  Route.resource('form', 'FormController').apiOnly();
+}).middleware('auth');
+
+Route.group(() => {
   Route.resource('question', 'QuestionController').apiOnly();
 }).middleware('auth');

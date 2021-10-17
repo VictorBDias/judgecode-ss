@@ -33,8 +33,12 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
+  forms() {
+    return this.hasMany('App/Models/Form');
+  }
+
   questions() {
-    return this.hasMany('App/Models/Questions');
+    return this.hasMany('App/Models/Question');
   }
 }
 
