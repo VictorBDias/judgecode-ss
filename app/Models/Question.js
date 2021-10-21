@@ -6,6 +6,10 @@ class Question extends Model {
     return this.belongsTo('App/Models/User');
   }
 
+  forms() {
+    return this.belongsToMany('App/Models/Form').pivotTable('forms_questions');
+  }
+
   static get hidden() {
     return ['updated_at', 'created_at'];
   }

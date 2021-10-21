@@ -12,6 +12,7 @@ class QuestionSchema extends Schema {
       table.string('type', 20).notNullable();
       table.string('answer').notNullable();
       table.jsonb('lines');
+      table.integer('form_id').references('id').inTable('forms');
 
       table.timestamps();
     });

@@ -35,15 +35,18 @@ class QuestionController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, auth }) {
+  async store({ request, auth, response }) {
     const data = request.all();
+    const form_id = request.input('form_id', null);
 
     const question = await Question.create({
       user_id: auth.user.id,
       ...data,
     });
 
-    return question;
+    if (form_id) await question.forms().sync([form_id]);
+
+    return response.json(question);
   }
 
   /**
@@ -70,15 +73,16 @@ class QuestionController {
    * @param {Response} ctx.response
    */
   async update({ params, request }) {
+    const data = request.all(); // only() [nomes dos campos]
     const question = await Question.findOrFail(params.id);
 
-    const data = request.all();
+    question.merge(data);
 
-    question.title = data.title;
-    question.description = data.description;
-    question.type = data.titypetle;
-    question.answer = data.answer;
-    question.lines = data.lines;
+    // question.title = data.title;
+    // question.description = data.description;
+    // question.type = data.titypetle;
+    // question.answer = data.answer;
+    // question.lines = data.lines;
 
     await question.save(data);
     return question;

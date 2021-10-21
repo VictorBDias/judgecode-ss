@@ -4,7 +4,9 @@ const Model = use('Model');
 
 class Form extends Model {
   questions() {
-    return this.hasMany('App/Models/Questions');
+    return this.belongsToMany('App/Models/Question').pivotTable(
+      'forms_questions',
+    );
   }
 
   user() {

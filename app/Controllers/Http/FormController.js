@@ -18,14 +18,7 @@ class FormController {
    * @param {View} ctx.view
    */
   async index() {
-    const forms = await Form.query()
-      // .with('user', builder => {
-      //   builder.select(['id', 'username', 'email']);
-      // })
-      // .with('question', builder => {
-      //   builder.select(['id', 'title']);
-      // })
-      .fetch();
+    const forms = await Form.query().with('questions').fetch();
 
     return forms;
   }
